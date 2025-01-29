@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chamada HTTP com Fetch</title>
+</head>
+<body>
+    <h1>Chamada HTTP com Fetch</h1>
+    <button id="chamarApi">Fazer Chamada</button>
+
+    <script>
+        document.getElementById('chamarApi').addEventListener('click', () => {
+            // Dados a serem enviados no corpo da requisição
+            const dados = {
+                num1: 5,
+                num2: 3
+            };
+
+            fetch('http://localhost:3000/soma', {
+                method: 'POST', // Define o método como POST
+                headers: {
+                    'Content-Type': 'application/json' // Define o tipo de conteúdo como JSON
+                },
+                body: JSON.stringify(dados) // Converte os dados para JSON
+            })
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(data => {
+                const resultadoDiv = document.createElement('div');
+                resultadoDiv.textContent = `Dados recebidos: ${JSON.stringify(data)}`;
+                document.body.appendChild(resultadoDiv);
+                alert('Dados recebidos! Veja o console.');
+            })
+            .catch(error => {
+                console.error('Erro na chamada:', error);
+                alert('Ocorreu um erro na chamada.');
+            });
+        });
+    </script>
+</body>
+</html>
